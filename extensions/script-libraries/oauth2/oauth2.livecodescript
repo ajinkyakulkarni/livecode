@@ -26,8 +26,6 @@ on revLoadLibrary
    
    if the environment contains "development" then
       set the _ideoverride of me to true
-      revSBAddAvailableLibrary the short name of me, "OAuth2"
-      revSBAddDependencyForInclusion "scriptLibraries", "OAuth2", "externals", "mergJSON"
    end if
 end revLoadLibrary
 
@@ -40,11 +38,17 @@ on revUnloadLibrary
 end revUnloadLibrary
 
 /**
+Title: OAuth2 Library
 
-Present an authorization dialog for any web service that supports OAuth2 Authorization Code Flow 
+Version: 1.0.0
 
-Requires mergJSON
+Author: LiveCode
 
+Description: 
+Present an authorization dialog for any web service that supports 
+OAuth2 Authorization Code Flow 
+
+Requires: mergJSON (external)
 */
 
 constant kRedirectURL = "http://127.0.0.1"

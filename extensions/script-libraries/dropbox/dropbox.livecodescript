@@ -28,7 +28,6 @@ on revLoadLibrary
    
    if the environment contains "development" then
       set the _ideoverride of me to true
-      revSBAddAvailableLibrary the short name of me, "Dropbox"
    end if
 end revLoadLibrary
 
@@ -41,10 +40,15 @@ on revUnloadLibrary
 end revUnloadLibrary
 
 /**
+Title: Dropbox Library
+
+Author: LiveCode
+
+Version: 2.0.0
+
+Description:
 Implements the Dropbox v2 API.
 Doesn't include business pro API.
-
-Version 2.0.0
 */
 
 /**

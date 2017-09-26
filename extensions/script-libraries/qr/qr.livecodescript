@@ -18,7 +18,6 @@ on revLoadLibrary
    
    if the environment contains "development" then
       set the _ideoverride of me to true
-      revSBAddAvailableLibrary the short name of me, "QR Code Generator"
    end if
 end revLoadLibrary
 
@@ -31,7 +30,13 @@ on revUnloadLibrary
 end revUnloadLibrary
 
 /**
+Title: QR Code Generator
 
+Version: 2.0.0
+
+Author: LiveCode
+
+Description:
 The QR Code Generator library for LiveCode generates QR codes
 according to the ISO international standard (ISO/IEC18004).
 
@@ -39,8 +44,6 @@ according to the ISO international standard (ISO/IEC18004).
 
 All versions (1 - 40) and all error correction levels
 (L, M, Q, H) are supported.
-
-Version 2.0.0
 
 Tags:
 barcode

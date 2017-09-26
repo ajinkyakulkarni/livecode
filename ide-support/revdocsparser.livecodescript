@@ -742,11 +742,7 @@ end __revDocsParseDirectoryToLibraryArray
 
 function revDocsFormatInlineComments pDataA, pIsLibrary
    local tComment
-   if pIsLibrary then
-      put "Description:" & return & pDataA["comments"] after tComment
-   else
-      put pDataA["comments"] into tComment
-   end if
+   put pDataA["comments"] into tComment
    
    local tElementsA
    put revDocsExtractElements(tComment) into tElementsA
@@ -1090,6 +1086,8 @@ private command __nameToKeyAndType pName, @rKey, @rType
       case "Introduced"
       case "Deprecated"
       case "Edition"
+      case "Version"
+      case "Author"
          put "standard" into rType
          break
       case "Example"
@@ -1291,7 +1289,9 @@ function revDocsParseDocTextToLibraryArray pFile, pText, pLibraryName, pAuthor
       put pLibraryName into tLibraryA["display name"]
       put revDocsModifyForUrl(pLibraryName) into tLIbraryA["name"]
    end if
-   put pAuthor into tLibraryA["author"]
+   if pAuthor is not empty then
+      put pAuthor into tLibraryA["author"]
+   end if
    return tLibraryA
 end revDocsParseDocTextToLibraryArray
 
@@ -1348,6 +1348,8 @@ function revDocsGroupElements pElementsA
    
 end revDocsGroupElements
 
+constant kInheritedElements = "author,version,associations,tags,requires"
+constant kLibraryEntryElements = "name,description,author,type,example,references,edition"
 function revDocsParseDocText pText, pFilename, pDefaults
    local tElementsA
    put revDocsExtractElements(pText) into tElementsA
@@ -1372,9 +1374,15 @@ function revDocsParseDocText pText, pFilename, pDefaults
             put tElementsA[tStartNum]["content"] into tParsedA["name"]
             add 1 to tStartNum
             break
+         case "Title"
+            put tElementsA[tStartNum]["content"] into tParsedA["display name"]
+            add 1 to tStartNum
+            break
          case "Description"
          case "Author"
          case "Type"
+         case "Version"
+         case "Requires"         
             // Add top-level tags to all library entries
          case "Tags"
             // Library entries can have examples
@@ -1405,6 +1413,7 @@ function revDocsParseDocText pText, pFilename, pDefaults
          repeat for each key tKey in tParsedA
             if not tSeen[tKey] and \
                   tParsedA[tKey] is not empty and \
+                  tKey is among the items of kInheritedElements and \
                   tEntryCount is not 0 then
                put tKey into tEntriesA[tEntryCount]["elements"][tEntryElementCount]["name"]
                put tParsedA[tKey] into tEntriesA[tEntryCount]["elements"][tEntryElementCount]["content"]
@@ -1440,6 +1449,7 @@ function revDocsParseDocText pText, pFilename, pDefaults
    repeat for each key tKey in tParsedA
       if not tSeen[tKey] and \
             tParsedA[tKey] is not empty and \
+            tKey is among the items of kInheritedElements and \
             tEntryCount is not 0 then
          add 1 to tEntryElementCount
          put tKey into tEntriesA[tEntryCount]["elements"][tEntryElementCount]["name"]
@@ -1453,7 +1463,7 @@ function revDocsParseDocText pText, pFilename, pDefaults
    put 1 into tCount
    add 1 to tEntryCount
    
-   repeat for each item tItem in "name,description,author,type,example,references,edition"
+   repeat for each item tItem in kLibraryEntryElements
       if tParsedA[tItem] is not empty then
          put tItem into tEntriesA[tEntryCount]["elements"][tCount]["name"]
          put tParsedA[tItem] into tEntriesA[tEntryCount]["elements"][tCount]["content"]

@@ -450,6 +450,23 @@ component Extensions
 	into [[ToolsFolder]]/Extensions place
 		rfolder macosx:packaged_extensions/com.livecode.library.scriptitems
 
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.diff
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.dropbox
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.getopt
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.httpd
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.messageauthentication
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.mime
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.oauth2
+    into [[ToolsFolder]]/Extensions place
+		rfolder macosx:packaged_extensions/com.livecode.script-library.qr
+
 component Toolchain.MacOSX
 	into [[ToolsFolder]]/Toolchain place
 		executable macosx:lc-compile as lc-compile
