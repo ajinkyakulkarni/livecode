@@ -177,11 +177,7 @@ void MCConcat::eval_ctxt(MCExecContext &ctxt, MCExecValue &r_value)
     if (MCValueGetTypeCode(*t_left) == kMCValueTypeCodeData &&
         MCValueGetTypeCode(*t_right) == kMCValueTypeCodeData)
     {
-        MCAutoDataRef t_result;
-        MCStringsEvalConcatenate(ctxt, (MCDataRef)*t_left, (MCDataRef)*t_right, &t_result);
-        
-        if (!ctxt . HasError())
-            MCExecValueTraits<MCDataRef>::set(r_value, MCValueRetain(*t_result));
+        MCStringsEvalConcatenate(ctxt, (MCDataRef)*t_left, (MCDataRef)*t_right, r_value.dataref_value);
         return;
     }
     
@@ -192,11 +188,7 @@ void MCConcat::eval_ctxt(MCExecContext &ctxt, MCExecValue &r_value)
     if (!ctxt . ConvertToString(*t_right, &t_right_string))
         return;
     
-    MCAutoStringRef t_result;
-    MCStringsEvalConcatenate(ctxt, *t_left_string, *t_right_string, &t_result);
-    
-    if (!ctxt . HasError())
-        MCExecValueTraits<MCStringRef>::set(r_value, MCValueRetain(*t_result));
+    MCStringsEvalConcatenate(ctxt, *t_left_string, *t_right_string, r_value.stringref_value);
 }
 
 void MCConcat::compile(MCSyntaxFactoryRef ctxt)
